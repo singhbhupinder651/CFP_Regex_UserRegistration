@@ -16,6 +16,7 @@ class UserRegistration:
     def __init__(self):
         self.regex_name = '^[A-Z][a-z]{2,}$'
         self.regex_email_id = '^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-z0-9-.]+$'
+        self.regex_phone_no = '^[0-9]{2}\s+[6-9][0-9]{9}$'
 
     def get_first_name(self, first_name):
         """
@@ -79,7 +80,28 @@ class UserRegistration:
                     "Please re-enter the valid email")
                 return False    
         except Exception as e:
-            lg.exception(e)        
+            lg.exception(e)    
+
+    def get_phone_number(self, phone_num):
+        """
+        Description:
+            This function is used to check for valid phone number
+        Parameter:
+            phone_num: The phone_num to be checked
+        Return:
+            None
+        """
+        try:
+            matches = re.search(self.regex_phone_no, phone_num)
+            if matches:
+                lg.info(f'Phone number validated successfully: {phone_num}')
+                return True
+            else:
+                lg.info(
+                    "Please re-enter the valid phone number")
+                return False    
+        except Exception as e:
+            lg.exception(e)            
 
 
 if __name__ == "__main__":
@@ -88,7 +110,8 @@ if __name__ == "__main__":
 
         while True:
 
-            choice = int(input("Enter the choice: \n1.Validate first-name\n2.Validate last-name\n0.Exit"))
+            choice = int(input("Enter the choice: \n1.Validate first-name\n2.Validate last-name\n3.Validate email-id\n4.Validate "
+                  "Phone number\n0.Exit"))
             if choice == 1:
                 first_name = input("Enter the first name: ")
                 user_object.get_first_name(first_name)
@@ -97,7 +120,10 @@ if __name__ == "__main__":
                 user_object.get_last_name(last_name)
             elif choice == 3:
                 email = input("Enter the email id: ")
-                user_object.get_email(email)    
+                user_object.get_email(email)
+            elif choice == 4:
+                phone_num = input("Enter the phone number: ")
+                user_object.get_phone_number(phone_num)        
             else:
                 break
     except Exception as e:

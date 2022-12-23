@@ -38,6 +38,14 @@ class TestUserRegistration(unittest.TestCase):
         self.assertFalse(user_obj.get_email('abc.xyz@.co.in'))
         self.assertTrue(user_obj.get_email('abc@bl.co'))
         self.assertFalse(user_obj.get_email('abc@bl'))
+
+    # Country code followed by 10 digit phone number
+    def test_to_validate_phone_number(self):
+        self.assertTrue(user_obj.get_phone_number('91 8618199770'))
+        self.assertFalse(user_obj.get_phone_number('8618199770'))
+        self.assertTrue(user_obj.get_phone_number('91 6350789669'))
+        self.assertFalse(user_obj.get_phone_number('861819'))
+        self.assertFalse(user_obj.get_phone_number('91 4789267892'))    
         
             
 if __name__ == '__main__':
