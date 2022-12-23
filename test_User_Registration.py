@@ -21,6 +21,16 @@ class TestUserRegistration(unittest.TestCase):
         self.assertTrue(user_obj.get_first_name('Bhu'))
         self.assertFalse(user_obj.get_first_name('Bh'))
 
+        
+
+    # start with capital letter and minimum 3 chars.
+    def test_to_validate_last_name(self):
+        self.assertTrue(user_obj.get_last_name('Singh'))
+        self.assertFalse(user_obj.get_last_name('singh'))
+        self.assertTrue(user_obj.get_last_name('Sin'))
+        self.assertFalse(user_obj.get_last_name('Si'))
+
+
 
 if __name__ == '__main__':
     unittest.main()
