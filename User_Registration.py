@@ -9,7 +9,7 @@
 import re
 from data_log import get_logger
 
-lg = get_logger(name="(Validate password rule 3)", file_name="data_log.log")
+lg = get_logger(name="(Validate password rule 4)", file_name="data_log.log")
 
 
 class UserRegistration:
