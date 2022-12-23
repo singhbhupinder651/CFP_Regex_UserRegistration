@@ -30,7 +30,15 @@ class TestUserRegistration(unittest.TestCase):
         self.assertTrue(user_obj.get_last_name('Sin'))
         self.assertFalse(user_obj.get_last_name('Si'))
 
-
-
+    # Email has 3 mandatory parts (abc, bl & co) and 2 optional (xyz & in) with precise @ and . positions
+    def test_to_validate_email(self):
+        self.assertTrue(user_obj.get_email('abc.xyz@bl.co.in'))
+        self.assertFalse(user_obj.get_email('.xyzbl.co.in'))
+        self.assertTrue(user_obj.get_email('abc.@bl.co.in'))
+        self.assertFalse(user_obj.get_email('abc.xyz@.co.in'))
+        self.assertTrue(user_obj.get_email('abc@bl.co'))
+        self.assertFalse(user_obj.get_email('abc@bl'))
+        
+            
 if __name__ == '__main__':
     unittest.main()
