@@ -20,6 +20,7 @@ class TestUserRegistration(unittest.TestCase):
         self.assertFalse(user_obj.get_first_name('bhupinder'))
         self.assertTrue(user_obj.get_first_name('Bhu'))
         self.assertFalse(user_obj.get_first_name('Bh'))
+
         
 
     # start with capital letter and minimum 3 chars.
@@ -28,6 +29,7 @@ class TestUserRegistration(unittest.TestCase):
         self.assertFalse(user_obj.get_last_name('singh'))
         self.assertTrue(user_obj.get_last_name('Sin'))
         self.assertFalse(user_obj.get_last_name('Si'))
+
 
 
 if __name__ == '__main__':

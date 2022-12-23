@@ -37,6 +37,7 @@ class UserRegistration:
         except Exception as e:
             lg.exception(e)
 
+
     def get_last_name(self, last_name):
         """
         Description:
@@ -64,6 +65,7 @@ if __name__ == "__main__":
         user_object = UserRegistration()
 
         while True:
+
             choice = int(input("Enter the choice: \n1.Validate first-name\n2.Validate last-name\n0.Exit"))
             if choice == 1:
                 first_name = input("Enter the first name: ")
