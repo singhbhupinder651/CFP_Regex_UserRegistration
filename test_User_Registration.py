@@ -54,7 +54,33 @@ class TestUserRegistration(unittest.TestCase):
         self.assertFalse(user_obj.get_password('bhupinder12'))
         self.assertFalse(user_obj.get_password('Bhupinder123@!'))
         self.assertFalse(user_obj.get_password('Sin123@'))     
-        
+
+    # Valid email samples
+    def test_to_validate_valid_email_samples(self):
+        self.assertTrue(user_obj.get_email_samples('abc@yahoo.com'))
+        self.assertTrue(user_obj.get_email_samples('abc-100@yahoo.com'))
+        self.assertTrue(user_obj.get_email_samples('abc.100@yahoo.com'))
+        self.assertTrue(user_obj.get_email_samples('abc111@abc.com'))
+        self.assertTrue(user_obj.get_email_samples('abc100@abc.com'))
+        self.assertTrue(user_obj.get_email_samples('abc.100@abc.com.au'))
+        self.assertTrue(user_obj.get_email_samples('abc@1.com'))
+        self.assertTrue(user_obj.get_email_samples('abc@gmail.com.com'))
+        self.assertTrue(user_obj.get_email_samples('abc+100@gmail.com'))
+
+    # Invalid email samples
+    def test_to_validate_invalid_email_samples(self):
+        self.assertFalse(user_obj.get_email_samples('abc'))
+        self.assertFalse(user_obj.get_email_samples('abc@.com.my'))
+        self.assertFalse(user_obj.get_email_samples('abc123@gmail.a'))
+        self.assertFalse(user_obj.get_email_samples('abc123@.com'))
+        self.assertFalse(user_obj.get_email_samples('abc123@.com.com'))
+        self.assertFalse(user_obj.get_email_samples('.abc@abc.com'))
+        self.assertFalse(user_obj.get_email_samples('abc()\* @gmail.com'))
+        self.assertFalse(user_obj.get_email_samples('abc@%\*.com'))
+        self.assertFalse(user_obj.get_email_samples('abc.@gmail.com'))
+        self.assertFalse(user_obj.get_email_samples('abc@abc@gmail.com'))
+        self.assertFalse(user_obj.get_email_samples('abc@gmail.com.1a'))
+        self.assertFalse(user_obj.get_email_samples('abc@gmail.com.aa.au'))    
             
 if __name__ == '__main__':
     unittest.main()
