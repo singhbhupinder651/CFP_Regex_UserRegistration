@@ -9,7 +9,7 @@
 import re
 from data_log import get_logger
 
-lg = get_logger(name="(Validate password rule 4)", file_name="data_log.log")
+lg = get_logger(name="(Validate email samples)", file_name="data_log.log")
 
 
 class UserRegistration:
@@ -18,6 +18,7 @@ class UserRegistration:
         self.regex_email_id = '^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-z0-9-.]+$'
         self.regex_phone_no = '^[0-9]{2}\s+[6-9][0-9]{9}$'
         self.regex_password = '^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^!@#$%_]*[!@#$%_][^!@#$%_]*$)[a-zA-Z0-9!@#$%_]{8,}$'
+        self.regex_email_samples = '^[A-Za-z0-9]+([.+-][A-Za-z0-9]+)*[@][A-Za-z0-9]+[.][A-Za-z]{2,3}([.][A-Za-z]{2,3})?$'
 
     def get_first_name(self, first_name):
         """
@@ -123,7 +124,28 @@ class UserRegistration:
                     "Please re-enter the valid password")
                 return False    
         except Exception as e:
-            lg.exception(e)                   
+            lg.exception(e) 
+
+    def get_email_samples(self, email_samples):
+        """
+        Description:
+            This function is used to check for valid email
+        Parameter:
+            email_samples: The email_samples to be checked
+        Return:
+            None
+        """
+        try:
+            matches = re.search(self.regex_email_samples, email_samples)
+            if matches:
+                lg.info(f'email validated successfully: {email_samples}')
+                return True
+            else:
+                lg.info(
+                    "Please re-enter the valid email")
+                return False    
+        except Exception as e:
+            lg.exception(e)                          
 
 
 if __name__ == "__main__":
@@ -133,7 +155,7 @@ if __name__ == "__main__":
         while True:
 
             choice = int(input("Enter the choice: \n1.Validate first-name\n2.Validate last-name\n3.Validate email-id\n4.Validate "
-                  "Phone number\n5.Validate password\n0.Exit"))
+                  "Phone number\n5.Validate password\n6.Validate email samples\n0.Exit"))
             if choice == 1:
                 first_name = input("Enter the first name: ")
                 user_object.get_first_name(first_name)
@@ -148,7 +170,22 @@ if __name__ == "__main__":
                 user_object.get_phone_number(phone_num) 
             elif choice == 5:
                 password = input("Enter the password: ")
-                user_object.get_password(password)           
+                user_object.get_password(password)  
+            elif choice == 6:
+                valid_email = ['abc@yahoo.com', 'abc-100@yahoo.com', 'abc.100@yahoo.com', 'abc111@abc.com',
+                               'abc-100@abc.net', 'abc.100@abc.com.au', 'abc@1.com', 'abc@gmail.com.com',
+                               'abc+100@gmail.com']
+                invalid_email = ['abc', 'abc@.com.my', 'abc123@gmail.a', 'abc123@.com', 'abc123@.com.com',
+                                 '.abc@abc.com',
+                                 'abc()\* @gmail.com', 'abc@%\*.com', 'abc..2002@gmail.com', 'abc.@gmail.com',
+                                 'abc@abc@gmail.com', 'abc@gmail.com.1a', 'abc@gmail.com.aa.au']
+                print('List of valid emails')
+                for email in valid_email:
+                    user_object.get_email_samples(email)
+
+                print('List of in-valid emails')
+                for email in invalid_email:
+                    user_object.get_email_samples(email)             
             else:
                 break
     except Exception as e:
