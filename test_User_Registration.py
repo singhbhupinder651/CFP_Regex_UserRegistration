@@ -45,7 +45,16 @@ class TestUserRegistration(unittest.TestCase):
         self.assertFalse(user_obj.get_phone_number('8618199770'))
         self.assertTrue(user_obj.get_phone_number('91 6350789669'))
         self.assertFalse(user_obj.get_phone_number('861819'))
-        self.assertFalse(user_obj.get_phone_number('91 4789267892'))    
+        self.assertFalse(user_obj.get_phone_number('91 4789267892'))   
+
+    # Password should be minimum 8 char, at least 1 upper char, atleast 1 numeric num, exactly one special char
+    def test_to_validate_password(self):
+        self.assertTrue(user_obj.get_password('Bhupinder123@'))
+        self.assertFalse(user_obj.get_password('bhupinder'))
+        self.assertFalse(user_obj.get_password('Bhupinder'))
+        self.assertFalse(user_obj.get_password('bhupinder12'))
+        self.assertFalse(user_obj.get_password('Bhupinder123@!'))
+        self.assertFalse(user_obj.get_password('Sin123@'))     
         
             
 if __name__ == '__main__':
